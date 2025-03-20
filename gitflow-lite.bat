@@ -17,36 +17,39 @@ if "%TYPE%"=="release" (
         git pull origin develop
         git checkout -b release/%NAME%
     ) else if "%ACTION%"=="finish" (
-        git checkout main
-        git pull origin main
+        REM NO tocamos main: solo merge a develop y avisamos
+        git checkout develop
+        git pull origin develop
         git merge release/%NAME%
         git tag -a %NAME% -m "Release %NAME%"
-        git push origin main --tags
-        git checkout develop
-        git merge release/%NAME%
-        git push origin develop
+        git push origin develop --tags
         git branch -d release/%NAME%
         git push origin --delete release/%NAME%
+        echo ============================================================
+        echo ✅ ¡Release finalizado! Ahora solicita un Pull Request
+        echo    de develop -> main para publicar en producción.
+        echo ============================================================
     )
 )
 
 if "%TYPE%"=="hotfix" (
     if "%ACTION%"=="start" (
-        git checkout main
-        git pull origin main
+        REM Creamos el hotfix desde develop (ya que no tenemos acceso a main)
+        git checkout develop
+        git pull origin develop
         git checkout -b hotfix/%NAME%
     ) else if "%ACTION%"=="finish" (
-        git checkout main
-        git pull origin main
-        git merge hotfix/%NAME%
-        git tag -a %NAME% -m "Hotfix %NAME%"
-        git push origin main --tags
         git checkout develop
         git pull origin develop
         git merge hotfix/%NAME%
-        git push origin develop
+        git tag -a %NAME% -m "Hotfix %NAME%"
+        git push origin develop --tags
         git branch -d hotfix/%NAME%
         git push origin --delete hotfix/%NAME%
+        echo ============================================================
+        echo ✅ ¡Hotfix finalizado! Ahora solicita un Pull Request
+        echo    de develop -> main para publicar en producción.
+        echo ============================================================
     )
 )
 
