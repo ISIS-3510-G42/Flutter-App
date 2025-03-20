@@ -10,7 +10,6 @@ class LoginPage extends StatelessWidget {
     final loginVM = Provider.of<LoginViewModel>(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -34,11 +33,9 @@ class LoginPage extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Correo',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
                 ),
@@ -51,11 +48,9 @@ class LoginPage extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Contraseña',
                     filled: true,
-                    fillColor: Colors.grey.shade100,
                     prefixIcon: const Icon(Icons.lock_outline),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
                 ),
@@ -107,11 +102,9 @@ class LoginPage extends StatelessWidget {
                     ),
                     child: loginVM.isLoading
                         ? const CircularProgressIndicator(
-                      color: Colors.white,
                     )
                         : const Text(
                       'Iniciar Sesión',
-                      style: TextStyle(fontSize: 16,color: Colors.white),
                     ),
                   ),
                 ),
