@@ -1,42 +1,33 @@
-import 'package:flutter/material.dart';
-import '../../data/repositories/user_repository.dart';
+import 'package:flutter/foundation.dart';
 
 class RegisterViewModel extends ChangeNotifier {
-  final UserRepository _userRepository = UserRepository();
+  String name = '';
+  String email = '';
+  String password = '';
+  String confirmPassword = '';
+  String? errorMessage;
+  bool isLoading = false;
 
-  String _email = '';
-  String _password = '';
-  bool _isLoading = false;
-  String? _errorMessage;
-
-  String get email => _email;
-  String get password => _password;
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-
-  void setEmail(String value) {
-    _email = value;
-    notifyListeners();
-  }
-
-  void setPassword(String value) {
-    _password = value;
-    notifyListeners();
-  }
+  void setName(String value) => name = value;
+  void setEmail(String value) => email = value;
+  void setPassword(String value) => password = value;
+  void setConfirmPassword(String value) => confirmPassword = value;
 
   Future<void> register() async {
-    _isLoading = true;
-    _errorMessage = null;
+    isLoading = true;
+    errorMessage = null;
     notifyListeners();
 
-    try {
-      // Llamar al repo para registrar al usuario (Firebase o tu backend)
-      await _userRepository.register(_email, _password);
-    } catch (e) {
-      _errorMessage = 'Error al registrarse: $e';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
+    // Simulación simple
+    await Future.delayed(const Duration(seconds: 2));
+    if (password != confirmPassword) {
+      errorMessage = 'Las contraseñas no coinciden';
+    } else {
+      // Aquí va tu lógica de Firebase/Auth...
+      errorMessage = null;
     }
+
+    isLoading = false;
+    notifyListeners();
   }
 }

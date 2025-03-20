@@ -17,6 +17,8 @@ class App extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
+        '/register': (context) => RegisterPage(),
+
       },
     );
   }
