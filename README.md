@@ -3,10 +3,11 @@
 Link hacia la Wiki del equipo https://github.com/ISIS-3510-G42/Backend-App/wiki/Home-%E2%80%90-ISIS3510-Documentation
 
 
-### Esta sera la estructura de archivos que usaremos como base
+## 📁 Estructura del proyecto
 
-#### NOTE: las carpetas android,ios,web,windows,macos,linux no se TOCAN!
+> **NOTA:** las carpetas android,ios,web,windows,macos,linux no se TOCAN!
 
+``` dart
 lib/
 ┣ domain/
 │   ┣ models/
@@ -44,6 +45,8 @@ lib/
 │   ┗ camera_service.dart
 ┣ main.dart
 ┗ router.dart   (opcional)
+
+```
 
 este proyecto usa gitflow, aqui como usarlo
 
