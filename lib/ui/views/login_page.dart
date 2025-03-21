@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../viewmodels/login_viewmodel.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +85,20 @@ class LoginPage extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: loginVM.isLoading
-                        ? null
-                        : () async {
-                      await loginVM.login();
-                      if (loginVM.errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      }
-                    },
+                    onPressed:
+                        loginVM.isLoading
+                            ? null
+                            : () async {
+                              await loginVM.login();
+                              if (loginVM.errorMessage == null) {
+                                if (context.mounted) {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/home',
+                                  );
+                                }
+                              }
+                            },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1E3C2E),
                       padding: const EdgeInsets.symmetric(vertical: 14),
@@ -100,12 +107,10 @@ class LoginPage extends StatelessWidget {
                       ),
                       elevation: 4,
                     ),
-                    child: loginVM.isLoading
-                        ? const CircularProgressIndicator(
-                    )
-                        : const Text(
-                      'Iniciar Sesión',
-                    ),
+                    child:
+                        loginVM.isLoading
+                            ? const CircularProgressIndicator()
+                            : const Text('Iniciar Sesión'),
                   ),
                 ),
 

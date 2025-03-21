@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../viewmodels/register_viewmodel.dart';
 
 class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,7 @@ class RegisterPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // LOGO
-                SvgPicture.asset(
-                  'assets/images/logo.svg',
-                  height: 200,
-                ),
+                SvgPicture.asset('assets/images/logo.svg', height: 200),
                 const SizedBox(height: 20),
 
                 const SizedBox(height: 30),
@@ -99,14 +97,20 @@ class RegisterPage extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: registerVM.isLoading
-                        ? null
-                        : () async {
-                      await registerVM.register();
-                      if (registerVM.errorMessage == null) {
-                        Navigator.pushReplacementNamed(context, '/home');
-                      }
-                    },
+                    onPressed:
+                        registerVM.isLoading
+                            ? null
+                            : () async {
+                              await registerVM.register();
+                              if (registerVM.errorMessage == null) {
+                                if (context.mounted) {
+                                  Navigator.pushReplacementNamed(
+                                    context,
+                                    '/home',
+                                  );
+                                }
+                              }
+                            },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1E3C2E),
                       padding: const EdgeInsets.symmetric(vertical: 14),
@@ -115,9 +119,10 @@ class RegisterPage extends StatelessWidget {
                       ),
                       elevation: 4,
                     ),
-                    child: registerVM.isLoading
-                        ? const CircularProgressIndicator()
-                        : const Text('Registrarse'),
+                    child:
+                        registerVM.isLoading
+                            ? const CircularProgressIndicator()
+                            : const Text('Registrarse'),
                   ),
                 ),
 

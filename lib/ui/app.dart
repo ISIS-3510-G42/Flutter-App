@@ -3,9 +3,12 @@ import 'views/login_page.dart';
 import 'views/register_page.dart';
 import 'views/home_page.dart';
 import 'app_theme.dart';
+import 'views/auth_gate.dart';
 
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +16,7 @@ class App extends StatelessWidget {
       theme: lightTheme,        // Tema claro
       darkTheme: darkTheme,     // Tema oscuro
       themeMode: ThemeMode.system, // o ThemeMode.light / ThemeMode.dark
-      initialRoute: '/login',
+      home: const AuthGate(),
       routes: {
         '/login': (context) => LoginPage(),
         '/home': (context) => HomePage(),
