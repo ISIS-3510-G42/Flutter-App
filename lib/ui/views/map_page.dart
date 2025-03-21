@@ -28,15 +28,7 @@ class MapPage extends StatelessWidget {
                 ),
               },
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-                BottomNavigationBarItem(icon: Icon(Icons.map), label: "Map"),
-              ],
-              onTap: (index) {
-                // Add navigation logic here
-              },
-            ),
+
           );
         },
       ),
