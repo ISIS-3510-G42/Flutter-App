@@ -1,7 +1,8 @@
+import 'package:clothing/ui/views/home_page.dart';
 import 'package:flutter/material.dart';
 import 'views/login_page.dart';
 import 'views/register_page.dart';
-import 'views/main_page.dart';
+import 'views/commonScaffold.dart';
 import 'views/map_page.dart';
 import 'app_theme.dart';
 import 'views/auth_gate.dart';
@@ -20,7 +21,7 @@ class App extends StatelessWidget {
       home: const AuthGate(),
       routes: {
         '/login': (context) => LoginPage(),
-        '/home': (context) => MainPage(),
+        '/home': (context) => HomePage(),
         '/register': (context) => RegisterPage(),
         '/map': (context) => MapPage(),
       },

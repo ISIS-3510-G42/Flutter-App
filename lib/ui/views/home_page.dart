@@ -2,104 +2,131 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/destacados_widget.dart';
+import 'commonscaffold.dart';
+import 'map_page.dart'; // Asegúrate de importar el widget base
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-
-  // Puedes conservar o refactorizar los métodos privados que usabas para construir los widgets (botones, categorías, etc.)
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // LOGO
-            Center(
-              child: SvgPicture.asset(
-                'assets/images/logo.svg',
-                height: 50,
-              ),
-            ),
-            const SizedBox(height: 16),
-            // BARRA DE BÚSQUEDA
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: const TextField(
-                decoration: InputDecoration(
-                  hintText: 'Buscar',
-                  border: InputBorder.none,
-                  icon: Icon(Icons.search),
+    // Define el índice para la pestaña actual (por ejemplo, 0 para "Inicio")
+    int currentIndex = 0;
+
+    return CommonScaffold(
+      currentIndex: currentIndex,
+      onItemTapped: (int index) {
+        // Aquí defines la navegación. Puedes usar Navigator.pushReplacement o similares
+        // según cómo manejes la navegación entre pantallas.
+        // Por ejemplo:
+        if (index != currentIndex) {
+          switch (index) {
+            case 0:
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => const HomePage()));
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => const MapPage()));
+              break;
+          // Agrega los casos para las otras vistas
+            default:
+            // Por defecto, muestra la misma pantalla
+              break;
+          }
+        }
+      },
+      title: 'Inicio', // Título opcional para el AppBar
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LOGO
+              Center(
+                child: SvgPicture.asset(
+                  'assets/images/logo.svg',
+                  height: 50,
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            // BOTONES DE MENÚ (ejemplo)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildMenuButton(Icons.favorite_border, 'Favoritos'),
-                _buildMenuButton(Icons.history, 'Historial'),
-                _buildMenuButton(Icons.chat_outlined, 'Chats'),
-              ],
-            ),
-            const SizedBox(height: 20),
-            // BANNER DESTACADO
-            GestureDetector(
-              onTap: () {
-                // Navegación o acción al tocar el banner
-              },
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  _getBannerImageByWeather(), // función que retorna el asset adecuado
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              const SizedBox(height: 16),
+              // BARRA DE BÚSQUEDA
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: const TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Buscar',
+                    border: InputBorder.none,
+                    icon: Icon(Icons.search),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-            // CATEGORÍAS (ejemplo)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Categorías',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Icon(Icons.arrow_forward_ios, size: 16),
-              ],
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 90,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              const SizedBox(height: 16),
+              // BOTONES DE MENÚ
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _buildCategory('Camisetas', 'assets/images/shirts'),
-                  _buildCategory('Chaquetas', 'assets/images/jackets.png'),
-                  _buildCategory('Pantalones', 'assets/images/pants.png'),
-                  _buildCategory('Tenis', 'assets/images/tennis.png'),
+                  _buildMenuButton(Icons.favorite_border, 'Favoritos'),
+                  _buildMenuButton(Icons.history, 'Historial'),
+                  _buildMenuButton(Icons.chat_outlined, 'Chats'),
                 ],
               ),
-            ),
-            const SizedBox(height: 24),
-            // PRODUCTOS DESTACADOS
-            const Text(
-              'Destacados',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            const DestacadosWidget(),
-          ],
+              const SizedBox(height: 20),
+              // BANNER DESTACADO
+              GestureDetector(
+                onTap: () {
+                  // Navegación o acción al tocar el banner
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    _getBannerImageByWeather(),
+                    height: 180,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              // CATEGORÍAS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'Categorías',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Icon(Icons.arrow_forward_ios, size: 16),
+                ],
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 90,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _buildCategory('Camisetas', 'assets/images/shirts'),
+                    _buildCategory('Chaquetas', 'assets/images/jackets.png'),
+                    _buildCategory('Pantalones', 'assets/images/pants.png'),
+                    _buildCategory('Tenis', 'assets/images/tennis.png'),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // PRODUCTOS DESTACADOS
+              const Text(
+                'Destacados',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12),
+              const DestacadosWidget(),
+            ],
+          ),
         ),
       ),
     );
@@ -114,7 +141,7 @@ class HomePage extends StatelessWidget {
             // Acción o navegación
           },
           icon: Icon(icon, size: 20),
-          label: Text(label, style: const TextStyle()),
+          label: Text(label),
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
@@ -146,7 +173,7 @@ class HomePage extends StatelessWidget {
   }
 
   String _getBannerImageByWeather() {
-    String weather = 'sunny'; // aquí podrías obtener la condición climática dinámicamente
+    const weather = 'sunny';
     switch (weather) {
       case 'rain':
         return 'assets/images/banners/banner_rainy.png';
