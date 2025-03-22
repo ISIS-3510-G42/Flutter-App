@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapViewModel extends ChangeNotifier {
   late GoogleMapController _mapController;
+  bool isMapReady = false; // Flag to track if the map is ready
 
   final LatLng bogotaLocation = const LatLng(4.7110, -74.0721);
 
@@ -29,10 +30,16 @@ class MapViewModel extends ChangeNotifier {
 
   void onMapCreated(GoogleMapController controller) {
     _mapController = controller;
+    isMapReady = true; // Set the map as ready
     notifyListeners();
   }
 
-  GoogleMapController get mapController => _mapController;
+  GoogleMapController get mapController {
+    if (!isMapReady) {
+      throw Exception('Map controller is not ready yet.');
+    }
+    return _mapController;
+  }
 }
 
 class Shop {
@@ -41,4 +48,3 @@ class Shop {
 
   Shop(this.name, this.location);
 }
-

@@ -3,9 +3,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/map_viewmodel.dart';
 
-class MapPage extends StatelessWidget {
+class MapPage extends StatefulWidget {
   const MapPage({super.key});
 
+  @override
+  _MapPageState createState() => _MapPageState();
+}
+
+class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -20,7 +25,7 @@ class MapPage extends StatelessWidget {
                 zoom: 12,
               ),
               onMapCreated: viewModel.onMapCreated,
-              markers: viewModel.markers, // Display the markers
+              markers: viewModel.markers,
             ),
           );
         },
@@ -28,4 +33,3 @@ class MapPage extends StatelessWidget {
     );
   }
 }
-
