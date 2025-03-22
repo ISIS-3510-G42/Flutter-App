@@ -20,18 +20,12 @@ class MapPage extends StatelessWidget {
                 zoom: 12,
               ),
               onMapCreated: viewModel.onMapCreated,
-              markers: {
-                Marker(
-                  markerId: const MarkerId("Bogota"),
-                  position: viewModel.bogotaLocation,
-                  infoWindow: const InfoWindow(title: "Bogotá, Colombia"),
-                ),
-              },
+              markers: viewModel.markers, // Display the markers
             ),
-
           );
         },
       ),
     );
   }
 }
+
