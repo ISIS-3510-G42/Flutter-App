@@ -15,4 +15,14 @@ class ClothingApiService {
       throw Exception('Error al obtener la ropa: ${response.statusCode}');
     }
   }
+  static Future<List<PostModel>> getByCategory(String category) async {
+    final response = await http.get(Uri.parse("$baseUrl/clothing/category/$category"));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      return jsonList.map((e) => PostModel.fromMap(e)).toList();
+    } else {
+      throw Exception("Error al cargar ropa por categoría: ${response.statusCode}");
+    }
+  }
 }

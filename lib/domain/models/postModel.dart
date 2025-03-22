@@ -21,6 +21,20 @@ class PostModel {
     required this.price,
   });
 
+  factory PostModel.fromMap(Map<String, dynamic> map) {
+    return PostModel(
+      id: map['id'],
+      name: map['name'] ?? '',
+      brand: map['brand'] ?? '',
+      category: map['category'] ?? '',
+      image: map['image'] ?? '',
+      color: map['color'] ?? '',
+      size: map['size'] ?? '',
+      group: map['group'] ?? '',
+      price: map['price']?.toString() ?? '',
+    );
+  }
+
   factory PostModel.fromJson(Map<String, dynamic> json) {
     return PostModel(
       id: json['id'],

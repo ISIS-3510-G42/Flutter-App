@@ -1,24 +1,23 @@
 // home_view.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../services/clothing_api_service.dart';
 import '../widgets/destacados_widget.dart';
+import 'climate_clothing_page.dart';
 import 'commonscaffold.dart';
-import 'map_page.dart'; // Asegúrate de importar el widget base
+import 'map_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Define el índice para la pestaña actual (por ejemplo, 0 para "Inicio")
     int currentIndex = 0;
 
     return CommonScaffold(
       currentIndex: currentIndex,
       onItemTapped: (int index) {
-        // Aquí defines la navegación. Puedes usar Navigator.pushReplacement o similares
-        // según cómo manejes la navegación entre pantallas.
-        // Por ejemplo:
+
         if (index != currentIndex) {
           switch (index) {
             case 0:
@@ -79,10 +78,22 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               // BANNER DESTACADO
               GestureDetector(
-                onTap: () {
-                  // Navegación o acción al tocar el banner
-                },
-                child: ClipRRect(
+                  onTap: () async {
+                    final clima = 'calor'; // puedes traer esto dinámicamente
+                    final ropaPorClima = await ClothingApiService.getByCategory(clima);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ClimateClothingPage(
+                          clima: clima,
+                          productos: ropaPorClima,
+                        ),
+                      ),
+                    );
+                  },
+
+                  child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.asset(
                     _getBannerImageByWeather(),
