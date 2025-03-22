@@ -5,6 +5,7 @@ import '../../services/clothing_api_service.dart';
 import '../widgets/destacados_widget.dart';
 import 'climate_clothing_page.dart';
 import 'commonscaffold.dart';
+import 'discover_page.dart';
 import 'map_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -23,6 +24,10 @@ class HomePage extends StatelessWidget {
             case 0:
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (_) => const HomePage()));
+              break;
+            case 1:
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (_) => const DiscoverPage()));
               break;
             case 3:
               Navigator.pushReplacement(
