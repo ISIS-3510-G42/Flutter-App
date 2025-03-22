@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../domain/models/postModel.dart';
 
 class ClothingApiService {
-  static const String baseUrl = 'https://biol-except-ml-grid.trycloudflare.com';
+  static const String baseUrl = 'https://that-attempted-lebanon-advert.trycloudflare.com';
 
   static Future<List<PostModel>> fetchClothing() async {
     final response = await http.get(Uri.parse('$baseUrl/clothing'));
